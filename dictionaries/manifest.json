@@ -7,32 +7,14 @@
       "name": "French — Core UI",
       "lang": "fr",
       "dictVersion": "1.1",
-      "description": "Base interface translation.",
       "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-dict-v1.json"
     },
     {
       "id": "es-core",
       "name": "Spanish — Core UI",
       "lang": "es",
-      "dictVersion": "1.7",
-      "description": "Base interface translation.",
+      "dictVersion": "1.0",
       "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/es-dict-v1.json"
-    },
-    {
-      "id": "en-core",
-      "name": "English — Core UI",
-      "lang": "en",
-      "dictVersion": "1.0",
-      "description": "Base interface translation.",
-      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/en-dict-v1.json"
-    },
-    {
-      "id": "br-core",
-      "name": "BR — Core UI",
-      "lang": "br",
-      "dictVersion": "1.0",
-      "description": "Base interface translation.",
-      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/br.json"
     }
   ]
 }
