@@ -1317,10 +1317,12 @@
           "left:0;",
           "top:calc(100% + 8px);",
           "width:100%;",
+          "max-height:220px;",
+          "overflow-y:auto;",
           "display:flex;",
           "flex-direction:column;",
           "gap:6px;",
-          "padding:8px;",
+          "padding:6px;",
           "border-radius:12px;",
           "border:1px solid rgba(255,255,255,.12);",
           "background:rgba(18,18,20,.96);",
@@ -1352,34 +1354,37 @@
           item.type = "button";
           item.style.cssText = css(
             "width:100%;",
-            "padding:10px 12px;",
+            "padding:7px 10px;",
             "border-radius:10px;",
             "border:1px solid rgba(255,255,255,.10);",
             "background:rgba(255,255,255,.045);",
             "color:rgba(255,255,255,.92);",
             "cursor:pointer;",
             "display:flex;",
-            "flex-direction:column;",
-            "align-items:flex-start;",
-            "gap:2px;",
-            "text-align:left;"
+            "flex-direction:row;",
+            "align-items:center;",
+            "justify-content:space-between;",
+            "gap:10px;",
+            "text-align:left;",
+            "white-space:nowrap;"
           );
 
           const itemTitle = document.createElement("span");
           itemTitle.textContent = dict.label || dict.name || dict.id || "Dictionary";
           itemTitle.style.cssText = css(
             "font-size:12px;",
-            "font-weight:600;"
+            "font-weight:600;",
+            "overflow:hidden;",
+            "text-overflow:ellipsis;",
+            "white-space:nowrap;"
           );
 
           const itemMeta = document.createElement("span");
-          itemMeta.textContent =
-            String(dict.lang || "und").toUpperCase() +
-            " · v" +
-            String(dict.dictVersion || "0");
+          itemMeta.textContent = "v" + String(dict.dictVersion || "0");
           itemMeta.style.cssText = css(
-            "font-size:10px;",
-            "opacity:.62;"
+            "font-size:11px;",
+            "opacity:.62;",
+            "flex-shrink:0;"
           );
 
           item.append(itemTitle, itemMeta);
@@ -1713,8 +1718,9 @@
 
         const localVersion = String(meta.dictVersion || "0");
         const remoteVersion = String(remote.dictVersion || "0");
+        const comparison = compareDictionaryVersions(remoteVersion, localVersion);
 
-        if (compareDictionaryVersions(remoteVersion, localVersion) > 0) {
+        if (comparison > 0) {
           pendingDictionaryUpdate = remote;
           setCurrentDictionaryStatus("Status: Update available", "rgba(255,190,120,.95)");
           btnUpdateDictionary.style.display = "inline-flex";
