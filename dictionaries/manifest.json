@@ -1,13 +1,13 @@
 {
-  "manifestVersion": "1.2",
-  "updatedAt": "2026-01-14T00:00:00.000Z",
+  "manifestVersion": "1.3",
+  "updatedAt": "2026-05-16T00:00:00.000Z",
   "dictionaries": [
     {
       "id": "fr-core",
       "name": "French — Core UI",
       "lang": "fr",
-      "dictVersion": "1.12",
-      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-dict-v1-12.json"
+      "dictVersion": "1.3",
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-dict-v1-3.json"
     }
   ]
 }
