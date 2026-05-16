@@ -6,8 +6,8 @@
       "id": "fr-core",
       "name": "French — Core UI",
       "lang": "fr",
-      "dictVersion": "2",
-      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-dict-v2.json"
+      "dictVersion": "2.0",
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-dict-v2-0.json"
     }
   ]
 }
