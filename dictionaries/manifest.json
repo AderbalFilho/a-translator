@@ -8,6 +8,20 @@
       "lang": "fr",
       "dictVersion": "2.0",
       "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-dict-v2-0.json"
+    },
+    {
+      "id": "es-core",
+      "name": "Spanish — Core UI",
+      "lang": "es",
+      "dictVersion": "1.0",
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/es-dict-v1-0.json"
+    },
+    {
+      "id": "pl-core",
+      "name": "Polish — Core UI",
+      "lang": "pl",
+      "dictVersion": "1.0",
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/pl-dict-v1-0.json"
     }
   ]
 }
