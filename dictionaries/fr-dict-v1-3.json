@@ -1,8 +1,8 @@
 {
   "meta": {
     "lang": "fr",
-    "dictVersion": "1.12",
-    "scriptVersion": "1.2.0"
+    "dictVersion": "1.3",
+    "scriptVersion": "1.5.0"
   },
   "entries": {
     "universe": "Univers",
@@ -540,7 +540,7 @@
     "folder": "Dossier",
     "create from premade": "Créer à partir d'un prétiré",
     "video not enabled": "Webcam désactivée",
-    "voice chat inactive": "Vocal désactivé",
+    "voice chat inactive": "Activation de la voix",
     "voice chat disabled by game settings": "Vocal désactivé dans les paramètres de la partie",
     "no other players have joined this game.": "Aucun joueur n'est actuellement connecté",
     "players online": "Joueurs connectés",
@@ -556,6 +556,7 @@
     "add player by username": "Ajouter des joueurs par nom d'utilisateur",
     "no character assigned": "Pas de personnage attribué",
     "player": "Joueur",
+    "players": "Joueurs",
     "lines and veils are used to set boundaries on content in a game. the players in this game have indicated the following as sensitive subject matter.": "Les lignes et les voiles servent à définir des limites concernant le contenu d’une partie. Les joueurs de cette partie ont indiqué les thèmes suivants comme étant sensibles.",
     "lines": "Lignes",
     "veils": "Voiles",
@@ -1002,5 +1003,23 @@
     "you don't have any universes.": "Vous n'avez aucun univers.",
     "fifth edition": "Cinquième édition",
     "get Alchemy free forever, plus:": "Utilisez Alchemy gratuitement pour toujours, avec en plus :"
+    "release notes": "Notes de version",
+    "new arrivals": "Nouveautés",
+    "coming soon to alchemy": "Bientôt disponible sur Alchemy",
+    "in progress": "En cours",
+    "spells": "Sorts",
+    "copy button code": "Copier le code (bouton)",
+    "copy link code": "Copier le code (lien)",
+    "scene credits": "Crédits de la scène",
+    "browse handouts": "Parcourir les aides de jeu",
+    "browse scenes": "Parcourir les scènes",
+    "browse actions": "Parcourir les actions",
+    "initiative order": "Ordre d'initiative",
+    "dice tray": "Plateau de dés",
+    "load action": "Lancer l'action",
+    "spatial dice": "Dés 3D",
+    "enable 3d dice animations when dice are rolled": "Activer les animations de dés en 3D lors des lancers",
+    "lumen layout": "Interface Lumen",
+    "use the new lumen game experience for everyone in this game": "Utiliser la nouvelle interface Lumen pour tous les participants de cette partie"
   }
 }
