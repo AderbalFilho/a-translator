@@ -1018,8 +1018,8 @@
     "dice tray": "Plateau de dés",
     "load action": "Lancer l'action",
     "spatial dice": "Dés 3D",
-    "enable 3d dice animations when dice are rolled": "Activer les animations de dés en 3D lors des lancers",
+    "enable 3d dice animations when dice are rolled.": "Activer les animations de dés en 3D lors des lancers",
     "lumen layout": "Interface Lumen",
-    "use the new lumen game experience for everyone in this game": "Utiliser la nouvelle interface Lumen pour tous les participants de cette partie"
+    "use the new lumen game experience for everyone in this game.": "Utiliser la nouvelle interface Lumen pour tous les participants de cette partie"
   }
 }
