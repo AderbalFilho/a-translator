@@ -1,56 +1,256 @@
 # A-Translator
 
-Unofficial UI translation tool for **Alchemy VTT**, based on a user-editable dictionary.
-<br>A-Translator allows you to translate Alchemy’s interface locally using your own terms, without modifying the platform or its content.
+Unofficial UI translation tool for **Alchemy VTT**, based on community dictionaries and local customization.
+
+A-Translator allows you to translate Alchemy’s interface locally using editable dictionaries, without modifying the platform, game data, or Alchemy servers.
 
 ## What is A-Translator?
 
 A-Translator is a **Tampermonkey userscript** that:
 - Translates Alchemy VTT’s interface text
-- Uses a **simple dictionary** (`key = translation`)
+- Uses editable community dictionaries
+- Supports local and GitHub-hosted dictionaries
 - Applies translations dynamically as the UI updates
-- Lets you enable/disable translations at any time
-- Stores everything **locally in your browser**
+- Lets you enable or disable translations at any time
+- Stores all data locally in your browser
 
 No data is sent anywhere.
 
-![A-Translator interface](assets/a-translator-ui-v1.1.png)
+![A-Translator interface](assets/a-translator-ui-v1.5.png)
+
+---
 
 ## What A-Translator is NOT
 
-- Not an official Alchemy feature  
-- Not affiliated with Arboreal, LLC  
-- Not a machine translation tool  
-- Not modifying Alchemy servers or content  
+- Not an official Alchemy feature
+- Not affiliated with Arboreal, LLC
+- Not a machine translation tool
+- Not modifying Alchemy servers or game content
 
-This is a **client-side accessibility / localization helper**.
+A-Translator is a **client-side localization and accessibility helper**.
 
-## Installation
+---
 
-### 1. Install Tampermonkey
-- Chrome / Edge / Brave: https://www.tampermonkey.net/
-- Firefox: https://www.tampermonkey.net/
+# Installation
 
-### 2. Configure Tampermonkey (IMPORTANT)
+## 1. Install Tampermonkey
+
+### Chrome / Edge / Brave
+https://www.tampermonkey.net/
+
+### Firefox
+https://www.tampermonkey.net/
+
+---
+
+## 2. Configure Tampermonkey (IMPORTANT)
+
 Before installing A-Translator, make sure Tampermonkey is correctly configured.
 
-Open **Tampermonkey Dashboard → Settings** and ensure:
-- **Developer mode** is enabled  
-- **Allow User Scripts** is enabled  
-- **Allow access to file URLs** (recommended)
-- **Allow scripts in private / incognito windows**  
-If these options are disabled, the script may install correctly but **will not run**.
+Open:
 
-### 3. Install A-Translator
-Open this link and confirm installation:<br>
-**https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/userscript/a-translator.user.js**<br>
-Tampermonkey will prompt you to install or update the script.
+```txt
+Tampermonkey Dashboard → Settings
+```
 
-## Usage
-- Open **https://app.alchemyrpg.com/**
-- A floating button appears on the left side
+Recommended settings:
+- Enable **Developer mode**
+- Enable **Allow User Scripts**
+- Enable **Allow access to file URLs** (recommended)
+- Enable **Allow scripts in private / incognito windows**
+
+If these options are disabled, the script may install correctly but will not run properly.
+
+---
+
+## 3. Install A-Translator
+
+Open the userscript URL below and confirm installation in Tampermonkey:
+
+```txt
+https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/userscript/a-translator.user.js
+```
+
+Tampermonkey will automatically manage future script updates.
+
+---
+
+# Usage
+
+- Open:
+
+```txt
+https://app.alchemyrpg.com/
+```
+
+- A floating A-Translator button appears on the left side of the screen
 - Click it to open the A-Translator panel
-- Edit your dictionary.
+
+You can then:
+- Import an official GitHub dictionary
+- Import a local JSON dictionary
+- Export your current dictionary
+- Edit your current dictionary manually
+- Enable or disable translations at any time
+
+Dictionary editing is hidden by default.
+
+Click:
+
+```txt
+Edit current dictionary
+```
+
+to open the dictionary editor.
+
+Press:
+
+```txt
+Save
+```
+
+to apply changes immediately.
+
+You may need to reload the page once after the very first installation.
+
+---
+
+# Dictionaries
+
+A-Translator supports:
+- Local dictionaries
+- Official GitHub-hosted dictionaries
+- Community-made dictionaries
+
+## Dictionary format
+
+Dictionaries use the following structure:
+
+```json
+{
+  "meta": {
+    "lang": "fr",
+    "dictVersion": "1.2",
+    "scriptVersion": "1.2.0"
+  },
+  "entries": {
+    "game": "Partie",
+    "character": "Personnage"
+  }
+}
+```
+
+### Meta fields
+
+| Field | Description |
+|---|---|
+| `lang` | Language code (`fr`, `es`, `de`, etc.) |
+| `dictVersion` | Dictionary version |
+| `scriptVersion` | A-Translator version used during export |
+
+Additional metadata may be stored locally after GitHub imports:
+- dictionary id
+- display name
+- source information
+- import date
+- update information
+
+---
+
+## Official dictionary manifest
+
+Official dictionaries are listed in:
+
+```txt
+dictionaries/manifest.json
+```
+
+The manifest provides:
+- dictionary id
+- display name
+- language
+- version
+- description
+- download URL
+
+A-Translator uses this manifest to:
+- display available dictionaries
+- import official dictionaries
+- check whether updates are available
+
+---
+
+## Current dictionary card
+
+The **Current dictionary** panel displays:
+- Dictionary name
+- Language
+- Version
+- Source
+- Entry count
+- Import date
+- Update status
+
+Possible status values:
+- `Up to date`
+- `Update available`
+- `Checking…`
+- `Local dictionary`
+- `Check failed`
+
+When an update is available, an **Update** button appears automatically.
+
+---
+
+## Community contributions
+
+If you create or improve a dictionary for another language, feel free to contribute it to the repository.
+
+Community contributions are welcome.
+
+Repository:
+```txt
+https://github.com/BriocheMasquee/a-translator
+```
+
+---
+
+# Reset / Uninstall
+
+## Reset dictionary
+
+The **Reset dictionary** button removes:
+- the current local dictionary
+- dictionary metadata
+- local translation settings
+
+It does **not** uninstall the userscript itself.
+
+---
+
+## Fully uninstall A-Translator
+
+To completely remove A-Translator:
+
+1. Open the Tampermonkey dashboard
+2. Disable or remove the A-Translator userscript
+3. Optionally use **Reset dictionary** beforehand to clear local data
+
+---
+
+# Disclaimer
+
+*Alchemy* is © Arboreal, LLC.
+
+A-Translator is an unofficial community project and is not affiliated with Arboreal, LLC.
+
+Use at your own discretion.
+
+---
+
+# License
+
+MIT License- Edit your dictionary.
 - Save → translations apply<br>
 ***Note:** You may need to reload the page once after the first installation.*
 
