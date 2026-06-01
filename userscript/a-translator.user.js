@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         A-Translator
 // @namespace    https://github.com/BriocheMasquee
-// @version      1.5.0
+// @version      1.6.0
 // @description  Unofficial Alchemy VTT UI translator (dictionary-based)
 // @author       Brioche Masquée
 // @match        https://app.alchemyrpg.com/*
@@ -1074,6 +1074,10 @@
 
     const importMode = "replace";
 
+    const initialEnabled = loadEnabledFlag();
+    let draftEnabled = initialEnabled;
+    let editorHasUnsavedChanges = false;
+
     const header = document.createElement("div");
     header.style.cssText = css(
       "padding:18px 14px 20px 14px;border-bottom:1px solid rgba(255,255,255,.12);",
@@ -1125,7 +1129,7 @@
 
     const toggle = document.createElement("input");
     toggle.type = "checkbox";
-    toggle.checked = loadEnabledFlag();
+    toggle.checked = draftEnabled;
     toggle.style.cssText = css(
       "appearance:none;width:46px;height:24px;border-radius:999px;",
       "background:" +
@@ -1170,8 +1174,9 @@
     syncToggleUI(toggle.checked);
 
     toggle.addEventListener("change", () => {
-      syncToggleUI(toggle.checked);
-      toggleCore(toggle.checked);
+      draftEnabled = toggle.checked;
+      syncToggleUI(draftEnabled);
+      updateUnsavedChangesState();
     });
 
     toggleRow.append(toggleBox, toggleLabel);
@@ -1294,6 +1299,83 @@
     const btnImportGithub = makeDictionaryActionButton("Import (GitHub)", IMPORT_GITHUB_SVG);
 
 
+    async function loadGithubDictionaryDraft(url, sourceInfo = null) {
+      const candidates = [String(url || "").trim()].filter(Boolean);
+
+      const version = String(sourceInfo?.dictVersion || "").trim();
+      if (version && url) {
+        const versionedUrl = String(url).replace(/-v[^/]*\.json$/i, "-v" + version + ".json");
+        if (versionedUrl && !candidates.includes(versionedUrl)) candidates.push(versionedUrl);
+      }
+
+      let response = null;
+      let usedUrl = "";
+      let lastStatus = "";
+
+      for (const candidate of candidates) {
+        response = await fetch(candidate, { cache: "no-store" });
+        usedUrl = candidate;
+
+        if (response.ok) break;
+        lastStatus = String(response.status);
+        response = null;
+      }
+
+      if (!response || !response.ok) {
+        throw new Error("GitHub import failed: HTTP " + (lastStatus || "unknown") + " — " + candidates.join(" | "));
+      }
+
+      let data;
+      try {
+        data = JSON.parse(await response.text());
+      } catch (e) {
+        console.error("[A-Translator] GitHub import: invalid JSON", e);
+        return { ok: false, error: "Invalid JSON" };
+      }
+
+      let importedMeta = null;
+      if (data && typeof data === "object" && !Array.isArray(data) && data.entries && typeof data.entries === "object") {
+        importedMeta = data.meta && typeof data.meta === "object" ? data.meta : null;
+        data = data.entries;
+      }
+
+      if (!data || typeof data !== "object" || Array.isArray(data)) {
+        console.error("[A-Translator] GitHub import: JSON must be an object");
+        return { ok: false, error: "JSON must be an object" };
+      }
+
+      const cleaned = {};
+      for (const [k, v] of Object.entries(data)) {
+        const src = String(k || "").trim().toLowerCase();
+        const dst = String(v || "").trim();
+        if (!src || !dst) continue;
+        cleaned[src] = dst;
+      }
+
+      const previousMeta = draftMeta && typeof draftMeta === "object" ? draftMeta : loadMeta();
+      const nextMeta = {
+        ...previousMeta,
+        ...(importedMeta || {}),
+        id: sourceInfo?.id || previousMeta.id || "",
+        name: sourceInfo?.name || sourceInfo?.label || previousMeta.name || "",
+        lang: sourceInfo?.lang || importedMeta?.lang || previousMeta.lang || "und",
+        dictVersion: sourceInfo?.dictVersion || importedMeta?.dictVersion || previousMeta.dictVersion || "0",
+        description: sourceInfo?.description || previousMeta.description || "",
+        source: "github",
+        sourceLabel: "A-Translator official GitHub",
+        sourceUrl: usedUrl || sourceInfo?.url || url,
+        manifestUpdatedAt: sourceInfo?.manifestUpdatedAt || null,
+        importedAt: new Date().toISOString()
+      };
+
+      return {
+        ok: true,
+        count: Object.keys(cleaned).length,
+        entries: cleaned,
+        meta: nextMeta
+      };
+    }
+
     async function handleGithubImport() {
       try {
         const dictionaries = await listGithubDictionaries();
@@ -1415,7 +1497,7 @@
             if (!ok) return;
 
             try {
-              const res = await importDictFromGithubUrl(dict.url, dict);
+              const res = await loadGithubDictionaryDraft(dict.url, dict);
 
               if (!res || res.ok === false) {
                 await openConfirmDialog({
@@ -1427,11 +1509,13 @@
                 return;
               }
 
-              draftDict = loadDictionary();
+              draftDict = res.entries;
+              draftMeta = res.meta;
               filterQuery = "";
               searchInput.value = "";
               refreshTextarea();
               refreshCurrentDictionaryInfo();
+              setUnsavedChanges(true);
             } catch (err) {
               console.error("[A-Translator] GitHub import error", err);
 
@@ -1515,12 +1599,13 @@
     let filterQuery = "";
 
     let draftDict = loadDictionary();
+    let draftMeta = loadMeta();
     let fullText = dictToLines(draftDict);
     let currentFilteredKeys = null;
     let hasUnsavedChanges = false;
 
-    function setUnsavedChanges(value) {
-      hasUnsavedChanges = !!value;
+    function updateUnsavedChangesState() {
+      hasUnsavedChanges = editorHasUnsavedChanges || draftEnabled !== initialEnabled;
       if (typeof unsavedChangesLabel !== "undefined") {
         unsavedChangesLabel.textContent = hasUnsavedChanges ? "Unsaved changes" : "";
       }
@@ -1531,9 +1616,76 @@
       }
     }
 
+    function setUnsavedChanges(value) {
+      editorHasUnsavedChanges = !!value;
+      updateUnsavedChangesState();
+    }
+
     function refreshTextarea() {
       fullText = dictToLines(draftDict);
       renderTextarea();
+    }
+
+    function loadLocalDictionaryDraft(jsonText, mode = "replace") {
+      mode = mode === "merge" ? "merge" : "replace";
+
+      let data;
+      try {
+        data = JSON.parse(String(jsonText || "").trim());
+      } catch (e) {
+        console.error("[A-Translator] Import: invalid JSON", e);
+        return { ok: false, error: "Invalid JSON" };
+      }
+
+      let importedMeta = null;
+      if (data && typeof data === "object" && !Array.isArray(data) && data.entries && typeof data.entries === "object") {
+        importedMeta = data.meta && typeof data.meta === "object" ? data.meta : null;
+        data = data.entries;
+      }
+
+      if (!data || typeof data !== "object" || Array.isArray(data)) {
+        console.error("[A-Translator] Import: JSON must be an object");
+        return { ok: false, error: "JSON must be an object" };
+      }
+
+      const cleaned = {};
+      for (const [k, v] of Object.entries(data)) {
+        const src = String(k || "").trim().toLowerCase();
+        const dst = String(v || "").trim();
+        if (!src || !dst) continue;
+        cleaned[src] = dst;
+      }
+
+      let addedCount = 0;
+      if (mode === "merge") {
+        for (const k of Object.keys(cleaned)) {
+          if (!Object.prototype.hasOwnProperty.call(draftDict, k)) addedCount++;
+        }
+      } else {
+        addedCount = Object.keys(cleaned).length;
+      }
+
+      const nextEntries = mode === "merge" ? { ...draftDict, ...cleaned } : cleaned;
+      const previousMeta = draftMeta && typeof draftMeta === "object" ? draftMeta : loadMeta();
+
+      const nextMeta = {
+        ...previousMeta,
+        ...(importedMeta || {}),
+        lang: importedMeta?.lang || previousMeta.lang || "und",
+        dictVersion: importedMeta?.dictVersion || previousMeta.dictVersion || "0",
+        source: "local",
+        sourceLabel: "Local file",
+        sourceUrl: "",
+        importedAt: new Date().toISOString()
+      };
+
+      return {
+        ok: true,
+        count: addedCount,
+        mode,
+        entries: nextEntries,
+        meta: nextMeta
+      };
     }
 
     importInput.addEventListener("change", async () => {
@@ -1542,20 +1694,21 @@
 
       try {
         exportHint.textContent = "Importing…";
-
         const text = await file.text();
-        const res = importDictFromJsonText(text, importMode);
+        const res = loadLocalDictionaryDraft(text, importMode);
 
         if (!res || res.ok === false) {
           exportHint.textContent = "Import failed";
           return;
         }
 
-        draftDict = loadDictionary();
+        draftDict = res.entries;
+        draftMeta = res.meta;
         filterQuery = "";
         searchInput.value = "";
         refreshTextarea();
         refreshCurrentDictionaryInfo();
+        setUnsavedChanges(true);
 
         exportHint.textContent = "Imported " + res.count + " new entries (" + res.mode + ")";
         setTimeout(() => (exportHint.textContent = ""), 2500);
@@ -1619,8 +1772,8 @@
     }
 
     function refreshCurrentDictionaryInfo() {
-      const meta = loadMeta();
-      const entries = loadDictionary();
+      const meta = draftMeta;
+      const entries = draftDict;
 
       const name = String(meta.name || meta.id || "Local dictionary").trim();
       const lang = String(meta.lang || "und").trim().toUpperCase();
@@ -1683,8 +1836,8 @@
     let pendingDictionaryUpdate = null;
 
     async function refreshCurrentDictionaryStatus() {
-      const meta = loadMeta();
-      const entries = loadDictionary();
+      const meta = draftMeta;
+      const entries = draftDict;
       const count = Object.keys(entries).length;
 
       pendingDictionaryUpdate = null;
@@ -1749,7 +1902,10 @@
       if (!ok) return;
 
       try {
-        const res = await importDictFromGithubUrl(pendingDictionaryUpdate.url, pendingDictionaryUpdate);
+        const res = await loadGithubDictionaryDraft(
+          pendingDictionaryUpdate.url,
+          pendingDictionaryUpdate
+        );
 
         if (!res || res.ok === false) {
           await openConfirmDialog({
@@ -1761,11 +1917,13 @@
           return;
         }
 
-        draftDict = loadDictionary();
+        draftDict = res.entries;
+        draftMeta = res.meta;
         filterQuery = "";
         searchInput.value = "";
         refreshTextarea();
         refreshCurrentDictionaryInfo();
+        setUnsavedChanges(true);
       } catch (e) {
         console.error("[A-Translator] Dictionary update error", e);
         await openConfirmDialog({
@@ -2176,20 +2334,22 @@ function applyEditsFromTextarea() {
         applyEditsFromTextarea();
       }
 
-    const meta = loadMeta();
-    if (!meta.lang) {
+    const nextMeta = { ...(draftMeta || {}) };
+    if (!nextMeta.lang) {
       const guessed = String(navigator.language || "undefined")
         .split("-")[0]
         .toLowerCase();
-      saveMeta({ ...meta, lang: guessed || "undefined" });
+      nextMeta.lang = guessed || "undefined";
     }
-    if (!meta.dictVersion) {
-      saveMeta({ ...loadMeta(), dictVersion: "1" }); // ou "0" si tu préfères
+    if (!nextMeta.dictVersion) {
+      nextMeta.dictVersion = "1";
     }
 
+    saveMeta(nextMeta);
     saveDictionary(draftDict);
     setUnsavedChanges(false);
 
+    toggleCore(draftEnabled);
     applyTranslations();
     close();
   });
