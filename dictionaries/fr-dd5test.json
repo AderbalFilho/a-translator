@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "id": "fr-dd5",
+    "name": "French — D&D 5E",
+    "lang": "fr",
+    "type": "system",
+    "system": "dd5",
+    "dictVersion": "0.1"
+  },
+  "entries": {
+    "armor classe": "Classe d'armure",
+    "class": "Classe",
+    "level": "Niveau"
+  }
+}

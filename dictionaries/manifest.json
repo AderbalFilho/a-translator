@@ -25,6 +25,16 @@
       "lang": "pl",
       "dictVersion": "1.0",
       "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/pl-dict-v1-0.json"
-    }
+    },
+    {
+      "id": "fr-dd5",
+      "name": "French — D&D 5E",
+      "lang": "fr",
+      "type": "system",
+      "system": "dd5",
+      "dictVersion": "0.1",
+      "description": "D&D 5E system translations.",
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-dd5test.json"
+}
   ]
 }
