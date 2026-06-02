@@ -1,20 +1,23 @@
 {
-  "manifestVersion": "2",
+  "manifestVersion": "2.2",
   "updatedAt": "2026-05-16T00:00:00.000Z",
   "dictionaries": [
     {
       "id": "fr-core",
       "name": "French — Core UI",
       "lang": "fr",
-      "dictVersion": "2.0",
-      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-dict-v2-0.json"
+      "type": "core",
+      "dictVersion": "1.0",
+      "description": "Base interface translation.",
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-testcore.json"
     },
     {
       "id": "es-core",
       "name": "Spanish — Core UI",
       "lang": "es",
+      "type": "core",
       "dictVersion": "1.0",
-      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/es-dict-v1-0.json"
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/es-testcore.json"
     },
     {
       "id": "pl-core",
