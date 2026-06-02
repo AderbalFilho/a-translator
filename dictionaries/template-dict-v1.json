@@ -1,8 +1,13 @@
 {
   "meta": {
+    "id": "XX-XXXX",
+    "name": "XXXXXX — XXXXX",
     "lang": "XX",
-    "dictVersion": "v1",
-    "scriptVersion": "1.1.0"
+    "type": "core",
+    // values : core, system, custom
+    "system": "",
+    // optionnal : dd5, pf2...
+    "dictVersion": "X.X"
   },
   "entries": {
     "universe": "",
