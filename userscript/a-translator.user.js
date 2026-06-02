@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         A-TranslatorW
+// @name         A-Translator
 // @namespace    https://github.com/BriocheMasquee
 // @version      2.0.0
 // @description  Unofficial Alchemy VTT UI translator (dictionary-based)
