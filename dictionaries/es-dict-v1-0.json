@@ -1,8 +1,10 @@
 {
   "meta": {
+    "id": "es-core",
+    "name": "Spanih — Core UI",
     "lang": "es",
-    "dictVersion": "1.0",
-    "scriptVersion": "1.5.0"
+    "type": "core",
+    "dictVersion": "1.0"
   },
   "entries": {
     "universe": "Universo",
