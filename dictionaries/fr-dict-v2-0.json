@@ -1,8 +1,10 @@
 {
   "meta": {
+    "id": "fr-core",
+    "name": "French — Core UI",
     "lang": "fr",
-    "dictVersion": "2.0",
-    "scriptVersion": "1.5.0"
+    "type": "core",
+    "dictVersion": "3.0"
   },
   "entries": {
     "universe": "Univers",
