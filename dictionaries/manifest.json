@@ -7,9 +7,8 @@
       "name": "French — Core UI",
       "lang": "fr",
       "type": "core",
-      "dictVersion": "1.0",
-      "description": "Base interface translation.",
-      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-testcore.json"
+      "dictVersion": "2.0",
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-core.json"
     },
     {
       "id": "es-core",
@@ -17,14 +16,15 @@
       "lang": "es",
       "type": "core",
       "dictVersion": "1.0",
-      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/es-testcore.json"
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/es-core.json"
     },
     {
       "id": "pl-core",
       "name": "Polish — Core UI",
       "lang": "pl",
+      "type": "core",
       "dictVersion": "1.0",
-      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/pl-dict-v1-0.json"
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/pl-core.json"
     },
     {
       "id": "fr-dd5",
@@ -32,9 +32,8 @@
       "lang": "fr",
       "type": "system",
       "system": "dd5",
-      "dictVersion": "0.1",
-      "description": "D&D 5E system translations.",
-      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-dd5test.json"
+      "dictVersion": "1.0",
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-dd5.json"
 }
   ]
 }
