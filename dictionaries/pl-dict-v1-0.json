@@ -1,8 +1,10 @@
 {
   "meta": {
+    "id": "pl-core",
+    "name": "Polish — Core UI",
     "lang": "pl",
-    "dictVersion": "1.0",
-    "scriptVersion": "1.5.0"
+    "type": "core",
+    "dictVersion": "1.0"
   },
   "entries": {
     "universe": "Uniwersum",
