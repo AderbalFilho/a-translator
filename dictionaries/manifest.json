@@ -1,5 +1,5 @@
 {
-  "manifestVersion": "2.2",
+  "manifestVersion": "2.5",
   "updatedAt": "2026-05-16T00:00:00.000Z",
   "dictionaries": [
     {
@@ -7,7 +7,7 @@
       "name": "French — Core UI",
       "lang": "fr",
       "type": "core",
-      "dictVersion": "2.0",
+      "dictVersion": "3.0",
       "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/fr-core.json"
     },
     {
