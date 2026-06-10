@@ -1,3 +1,7 @@
+# Documentiation versions
+
+Portuguese version [here](PTBR-README.md) (versão em português [aqui](PTBR-README.md)).
+
 # A-Translator v 2.0.0
 
 Unofficial localization tool for _Alchemy VTT_.
@@ -49,7 +53,15 @@ Recommended settings:
 
 ## 3. Install A-Translator
 
+Obtain the file below, open in any text reader software and copy its contents:
+
 https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/userscript/a-translator.user.js 
+
+Alternatively, you can access this link and copy its contents:
+
+https://github.com/BriocheMasquee/a-translator/blob/main/userscript/a-translator.user.js
+
+Click on the Tampermonkey extension, click on "Add new script..." and replace the content with the copied content above. Then go to file and save (or ctrl + s).
 
 Future script updates are handled automatically.
 
@@ -59,7 +71,9 @@ Future script updates are handled automatically.
 
 Open https://app.alchemyrpg.com 
 
-Click the globe icon to open A-Translator.
+Below the logo on the top left of the page you should see the globe icon to open A-Translator, click on it (in case you don't find it, please refresh the page).
+
+![A-Translator location](assets/a-translator-location.png)
 
 You can:
 - Import local dictionaries
@@ -92,7 +106,7 @@ Multiple system dictionaries can coexist simultaneously. User overrides always h
       "id": "fr-core",
       "name": "French UI",
       "lang": "fr",
-      "type": "core", // supported types : core, system, custim, user
+      "type": "core", // supported types : core, system, custom, user
       "dictVersion": "2.0"
   },
   "entries": {
