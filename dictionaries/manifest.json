@@ -27,6 +27,14 @@
       "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/pl-core.json"
     },
     {
+      "id": "pt_br-core",
+      "name": "Brazilian portuguese - Core UI",
+      "lang": "pt-br",
+      "type": "core",
+      "dictVersion": "1.0",
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/pt_br-core.json"
+    },
+    {
       "id": "fr-dd5",
       "name": "French — D&D 5E",
       "lang": "fr",
