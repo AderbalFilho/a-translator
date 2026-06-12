@@ -35,6 +35,14 @@
       "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/pt_br-core.json"
     },
     {
+      "id": "nl-core",
+      "name": "Dutch - Core UI",
+      "lang": "nl",
+      "type": "core",
+      "dictVersion": "1.0",
+      "url": "https://raw.githubusercontent.com/BriocheMasquee/a-translator/main/dictionaries/nl-core.json"
+    },
+    {
       "id": "fr-dd5",
       "name": "French — D&D 5E",
       "lang": "fr",
